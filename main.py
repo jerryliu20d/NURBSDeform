@@ -1,4 +1,4 @@
-from abstract import *
+from abstract import * # todo import specific func/class
 
 def main():
     filename = 'pyramid'
@@ -20,7 +20,9 @@ if __name__ == '__main__':
 # %%
 # surface.config['shape']['data']['control_points']['trims']['data'][0][0]
 # surface.config['shape']['data']['control_points'].keys()
-# %%
+# %% todo finish the script in simple bar geometry case, create the NURBS bar manually in python.
+## the engineer provides solid objects and we may use OCC to convert it to some NURBS objects, the line edges are also NURBS with two control poionts?
+## add pass after each function for readability
 
 filename = 'pyramid'
 filename = 'Cube'
@@ -37,6 +39,7 @@ if surface is not None:
 
 
 class Surface:
+    _ctp = None  # todo set every attributes to none first, remember add desccription for each attributes
     def __init__(self, surface):
         self._init_ctp = surface.config['shape']['data']['control_points']['points'] # 3d list type, u*v*3
         self._ctp = surface.config['shape']['data']['control_points']['points'] # 3d list type u*v*3
@@ -50,6 +53,7 @@ class Surface:
         self.bounds = surface.config['shape']['data']['bounds'] # list of int, [u_low,u_up,v_low,v_up], used for trim2d
         self.trim2d = self.extract_trim2d(surface) # 2d rep of trims, return list of geomdl.BSpline.Curve
         self.trim3d = self.extract_trim3d(surface) # list of Curve object.
+        pass
 
     def extract_trim2d(self, surface):
         # todo how should I represent the 2d NURBS in property?
@@ -72,6 +76,9 @@ class Surface:
     @ctp.deleter
     def ctp(self):
         self._ctp = self._init_ctp
+
+    def surf_eval(self):
+        pass
 
 class Curve:
     def __init__(self):
